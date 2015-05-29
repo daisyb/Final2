@@ -14,3 +14,15 @@ Stuff we have to do going forward:
 
 
 Anything to add?
+
+
+
+//What I learned this period
+Idk if you'll see this next period or like tomorrow when it totally isn't useful
+but this is what I figured out today (it ain't much):
+to use processing at school type:
+   cd /usr/local/processing	-->
+   ./processing			-->
+ 
+really simple tutorial:
+https://www.processing.org/tutorials/gettingstarted/
