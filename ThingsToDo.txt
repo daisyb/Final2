@@ -1,0 +1,16 @@
+Stuff we have to do going forward:
+
+1)Create a board/Figure out how to randomly generate new  boards
+	 - both a graphic board that appears on screen, and a stored version of the board for our code
+2)Create a system of movement throughout the board (up, down, left, right)
+	 - should recognize where the piece is in relation to the walls.
+3)Make it so the player can use the keyboard to access the movement functions
+4)Modify a maze solving algorithm to fit our project
+5)Use the algorithm to have the computer piece move on it's own at varying speeds
+6)Mess around with settings to create different difficulties.
+
+7?? Should we have multiple levels? Like each level it gets a little harder (in terms of speed, complexity, etc.)
+8?? System of scoring? Maybe based on how long it took you to solve the puzzle or how many moves or how close the computer piece was to solving it???
+
+
+Anything to add?
