@@ -27,7 +27,7 @@ import java.util.LinkedList;
     - made a node class
       - stores x,y cords in grid
       - has functions to change square color to black, white, pink
-        - black and white are for maze purposes, pink is just for testing
+        -  white for maze purposes, black and pink is just for testing
       - has boolean variables for whether it's been visited and whether it is white or black
       - arrayList which stores neighbors for 2.1 in the algorithm
         - idk if this is the most efficient way of doing it, it's just what I came up with first
