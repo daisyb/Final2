@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Random;
 
 /*
   so I googled stuff and found this:
@@ -41,6 +42,7 @@ import java.util.LinkedList;
 
 node[][] grid; //grid of nodes which corresponds to squares on the grid
 LinkedList<node> frontier; //frontier for maze algorithm part
+Random rnd;
 
 /*
   rows = # of rows in node grid
@@ -62,6 +64,7 @@ void setup(){
   cellSize = windowSize/rows;
   size(windowSize,windowSize);
   background(0);
+  rnd = new Random();
   frontier = new LinkedList<node>();
   grid = new node[rows][cols];
   for(int r=0;r<rows;r++){
@@ -69,25 +72,52 @@ void setup(){
       grid[r][c] = new node(r,c);
     }
   }
-  grid[3][3].makeBlack();//test
+  //grid[3][3].makeBlack();//test
   createMaze();
-
+  /*
+  grid[5][5].combine(grid[4][5]);
+  grid[4][5].combine(grid[4][4]);
+  grid[5][5].combine(grid[5][6]);
+  grid[5][5].combine(grid[4][5]);
+  
+  println(grid[3][3]);
+  grid[3][4].setVisited(true);
+  grid[4][3].setVisited(true);
+  grid[3][2].setVisited(true);
+  println(grid[3][3].ranNeighbor());
+  println(grid[3][3].ranNeighbor());
+  */
 }
 
 
 
 /*
-  where the maze creation function will be
-  you can change the name if you like
+  This isn't working idk
 */
 void createMaze(){
   node current;
-  /*
- while(current.visited == false){
-   frontier.add(current);
-   //if(
+  current = grid[0][0];
+  current.setVisited(true);
+  int numVisited = 0;
+ while(numVisited < rows*cols){
+   current.fillNeighbors();
+   numVisited +=1;
+   if(current.neighbors.size() > 2){ 
+     frontier.add(current);
+     node tmp = current.ranNeighbor();
+     current.combine(tmp);
+     current = tmp;
+   } else if (!frontier.isEmpty()){
+       current = frontier.pop();
+   } else {
+     while (current.visited == true){
+       current = grid[rnd.nextInt(rows)][rnd.nextInt(cols)];
+     }
+     current.setVisited(true);
+   }
+   
  }
- */
+ 
 }
 
 
@@ -158,6 +188,38 @@ class node{
     rect(xcor*cellSize,ycor*cellSize,cellSize,cellSize);
     white = false;
   }
+  
+  
+  /*
+      gets rid of the wall between adjacent nodes
+      sets visited true for current and adjacent node
+      does 2.1.3 and 2.1.4
+ */
+  void combine(node n){
+    fillNeighbors();
+    stroke(255);
+    makeWhite();
+    stroke(0);
+    this.setVisited(true);
+    n.setVisited(true);
+    for(node a : neighbors){
+      if(a != n && a.visited == false){
+        a.makeWhite();
+      }
+    }
+  }
+    //for(int = i;i<neighbors.size();i++){
+      
+  node ranNeighbor(){
+    fillNeighbors();
+    if(neighbors.size() == 0){
+       System.out.println(this);
+       System.out.println(neighbors);
+      return null;
+    }
+    return neighbors.get(rnd.nextInt(neighbors.size()));
+  }
+  
   
   /*
     sets visited variable
