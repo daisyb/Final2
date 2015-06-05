@@ -12,6 +12,12 @@ Stuff we have to do going forward:
 7?? Should we have multiple levels? Like each level it gets a little harder (in terms of speed, complexity, etc.)
 8?? System of scoring? Maybe based on how long it took you to solve the puzzle or how many moves or how close the computer piece was to solving it???
 
+Have 4 different modes: easy, medium, hard and satan (in satan mode the algorithm for moving will run in real time)
+~random maze generator, but then we would have to determine where we want to place the pieces and where we should 
+make an exit
+~scoring is based on the amount of moves the opponent is away from the goal
+~5 levels per mode? I think we should make the mazes larger for each level
+
 
 Anything to add?
 
