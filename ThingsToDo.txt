@@ -8,15 +8,10 @@ Stuff we have to do going forward:
 4)Modify a maze solving algorithm to fit our project
 5)Use the algorithm to have the computer piece move on it's own at varying speeds
 6)Mess around with settings to create different difficulties.
+	- easy, medium, hard, satan (slow --> real time)
+7)Aim for 3 different levels, different size for each
+8)Scoring based on how far away opponent is. 5 point for every block away from goal it is
 
-7?? Should we have multiple levels? Like each level it gets a little harder (in terms of speed, complexity, etc.)
-8?? System of scoring? Maybe based on how long it took you to solve the puzzle or how many moves or how close the computer piece was to solving it???
-
-Have 4 different modes: easy, medium, hard and satan (in satan mode the algorithm for moving will run in real time)
-~random maze generator, but then we would have to determine where we want to place the pieces and where we should 
-make an exit
-~scoring is based on the amount of moves the opponent is away from the goal
-~5 levels per mode? I think we should make the mazes larger for each level
 
 
 Anything to add?
