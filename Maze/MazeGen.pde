@@ -1,6 +1,6 @@
-int W = 49; // Maze Width 
-int H = 49; // Maze Height 
-int S = 15;  // Block size 
+int W = 49; // width 
+int H = 49; // hight 
+int S = 15;  // block size 
 int g_intDepth; 
  
 int[] Maze  = new int[W*H]; 
