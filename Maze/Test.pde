@@ -13,7 +13,7 @@ void setup(){
   wallSize = 10;
   rows = 11;
   cols = rows;
-  //stroke(255);
+  noStroke();
   cellSize = windowSize/rows;
   size(windowSize,windowSize);
   background(0);
@@ -23,13 +23,13 @@ void setup(){
        grid[r][c] = new wall(r,c);
     }
   }
-  grid[2][2].makeWhite(true);
+  grid[1][2].leftWhite();
 }
 
 class node{
   int xcor,ycor;
   
-  node(int xcor, int ycor){
+  node(int ycor, int xcor){
     this.xcor = xcor;
     this.ycor = ycor;
     fill(255);
@@ -63,4 +63,18 @@ class wall extends node{
         rect(xcor*cellSize,ycor*cellSize,wallSize-cellSize,cellSize);
       }
   }
+  void leftWhite(){
+    fill(255);
+    rect(xcor*cellSize,ycor*cellSize,cellSize,wallSize-cellSize);
+  }
+  
+  void bottomWhite(){
+    fill(255);
+    rect(xcor*cellSize,ycor*cellSize,wallSize-cellSize,cellSize);
+  }
+  String toString(){
+    return xcor + " " + ycor;
+  }
 }
+
+
