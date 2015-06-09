@@ -1,6 +1,6 @@
-int W = 50; // width 
-int H = 50; // height 
-int S = 15;  // block size 
+int W = 49; // Maze Width 
+int H = 49; // Maze Height 
+int S = 15;  // Block size 
 int g_intDepth; 
  
 int[] Maze  = new int[W*H]; 
@@ -68,14 +68,16 @@ void DigMaze(int[] Maze, int x, int y) {
           Maze[y*W+x-1] = 1; 
           DigMaze (Maze, x-2,y); 
         } 
-      
+        break; 
+    } // end switch 
     intCount = ValidCount(Maze, x, y); 
-  } 
+  } // end while 
  
   g_intDepth = g_intDepth - 1; 
-} 
+} // end DigMaze() 
  
-int ValidMove(int[] Maze, int x, int y) { 
+ 
+public int ValidMove(int[] Maze, int x, int y) { 
   int intResult = 0; 
   if (x>=0 && x<W && y>=0 && y<H 
            && Maze[y*W+x] == 0) intResult = 1; 
