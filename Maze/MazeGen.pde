@@ -69,12 +69,12 @@ void DigMaze(int[] Maze, int x, int y) {
           DigMaze (Maze, x-2,y); 
         } 
         break; 
-    } // end switch 
+    } 
     intCount = ValidCount(Maze, x, y); 
-  } // end while 
+  } 
  
   g_intDepth = g_intDepth - 1; 
-} // end DigMaze() 
+} 
  
  
 public int ValidMove(int[] Maze, int x, int y) { 
