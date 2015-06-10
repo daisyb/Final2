@@ -1,6 +1,6 @@
-int W = 49; // width 
-int H = 49; // hight 
-int S = 15;  // block size 
+int W = 45; // width 
+int H = 45; // hight 
+int S = 17;  // block size 
 int g_intDepth; 
  
 int[] Maze  = new int[W*H]; 
@@ -15,7 +15,7 @@ void setup() {
  
   DigMaze(Maze, 1, 1); 
   Maze[1*W+1] = 2; 
-  Maze[47*W+48] = 1; 
+  Maze[43*W+44] = 1; 
  
   for (y = 0; y<H; y++ )  
    for (x = 0; x<W; x++ )  
