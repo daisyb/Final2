@@ -8,7 +8,7 @@ wall[][] grid;
 
 int rows, cols, cellSize, wallSize, windowSize;
 int totalCells;
-LinkedList stack;
+LinkedList<wall> stack;
 color black = (0);
 color white = (255);
 Random rnd = new Random();
@@ -16,7 +16,7 @@ Random rnd = new Random();
 void setup(){
   windowSize = 538;
   wallSize = 10;
-  rows = 11;
+  rows = 10;
   cols = rows;
   noStroke();
   cellSize = windowSize/rows;
@@ -24,12 +24,13 @@ void setup(){
   background(0);
   grid = new wall[rows][cols];
   totalCells= rows*cols;
-  stack = new LinkedList();
+  stack = new LinkedList<wall>();
   for(int r=0;r<rows;r++){
     for(int c=0;c<cols;c++){   
        grid[r][c] = new wall(r,c);
     }
   }
+  /*
   grid[10][10].fillSquare(200);
   grid[10][10].fillLeft(255);
   grid[10][10].fillAbove(255);
@@ -39,40 +40,25 @@ void setup(){
   println(grid[10][9].below);
   println(black);
   //grid[10][10].fillSquare(200);
- 
+ */
+ makeMaze();
 }
 
 void makeMaze(){
-  current = grid[rnd.nextInt(rows)][rnd.nextInt(cols)];
-  visitedCells=1;
+  wall current = grid[rnd.nextInt(rows)][rnd.nextInt(cols)];
+  int visitedCells=1;
+  stack.push(current);
   while (visitedCells<totalCells){
-    //if(current.right == false || current.left == false || current.above ==false || current.below == false){
-      int chance = rnd.nextInt(4);
-      if(chance ==0 && current.right ==false && current.getRight()!=null){
-        current.fillRight(255);
-        stack.push(current);
-        current = current.getRight();
-        visitedCells++;
-      } else if(chance ==1 && current.left ==false && current.getLeft()!=null){
-        current.fillLeft(255);
-        stack.push(current);
-        current = current.getLeft();
-        visitedCells++;
-      }else if(chance ==2 && current.above ==false && current.getAbove()!=null){
-        current.fillRight(255);
-        stack.push(current);
-        current = current.getAbove();
-        visitedCells++;
-      }else if (current.below ==false && current.getBelow()!=null){
-        current.fillBelow(255);
-        stack.push(current);
-        current = current.getBelow();
-        visitedCells++;
-      } else {
-        
-    }
+    if(current.hasNeighbors()){
+      stack.push(current);
+      current = current.ranNeighbor();
+      //println("oc"+current+"oc");
+      visitedCells++;
+    } else {
+      current = stack.pop();
     }
   }
+}
         
         
 
@@ -91,30 +77,32 @@ class node{
     rect(xcor*cellSize,ycor*cellSize,wallSize+cellSize,wallSize);
   }
   
-  node getRight(){
+  wall getLeft(){
     if(xcor>1){
       return grid[xcor-1][ycor];
     } 
     return null;
   }
   
-  node getLeft(){
+  wall getRight(){
     if(xcor<10){
       return grid[xcor+1][ycor];
     }
     return null;
   }
   
-  node getAbove(){
+  wall getBelow(){
     if(ycor<10){
       return grid[xcor][ycor+1];
     }
+    return null;
   }
   
-  node getBelow(){
+  wall getAbove(){
     if(ycor>1){
       return grid[xcor][ycor-1];
     }
+    return null;
   }
 }
 
@@ -127,6 +115,18 @@ class wall extends node{
     right=false;
     above=false;
     below=false;
+    if(xcor>=rows-2){
+      right=true;
+    }
+    if(xcor<=2){
+      left=true;
+    }
+    if(ycor>=cols-2){
+      below=true;
+    }
+    if(ycor<=2){
+      above=true;
+    }
   }
   
   void fillSquare(int f){
@@ -138,37 +138,66 @@ class wall extends node{
     fill(f);
     rect((xcor-1)*cellSize,ycor*cellSize,wallSize,wallSize-cellSize);
     right = true;
-    if(xcor<10){
-      grid[xcor+1][ycor].left = true;
-    }
+    if(getRight() != null) getRight().left=true;
   }
   
   void fillAbove(int f){
     fill(f);
     rect(xcor*cellSize,(ycor-1)*cellSize,wallSize-cellSize,wallSize);
     above=true;
-    if(ycor>1){
-      grid[xcor][ycor-1].below = true;
-    }
+    if(getAbove() != null) getAbove().below =true;
   }
   
   void fillLeft(int f){
     fill(f);
     rect(xcor*cellSize,ycor*cellSize,wallSize,wallSize-cellSize);
     left=true;
-    if(xcor>1){
-      grid[xcor-1][ycor].right =true;
-    }
+    if(getLeft() != null) getLeft().right=true;
   }
   
   void fillBelow(int f){
     fill(f);
     rect(xcor*cellSize,ycor*cellSize,wallSize-cellSize,wallSize);
     below=true;
-    if(ycor<10){
-      grid[xcor][ycor+1]=true;
-    }
+    if(getBelow() != null) getBelow().above=true;
   }
+  
+  boolean hasNeighbors(){
+    return !right || !left || !above || !below;
+  }
+  
+  wall ranNeighbor(){
+    if(!hasNeighbors())return null;
+    ArrayList<wall> a = new ArrayList<wall>();
+    if(!right){
+      if(getRight() !=null) a.add(getRight());
+    }
+    if(!left){
+      if(getLeft()!=null) a.add(getLeft());
+    }
+    if(!above){
+      if(getAbove()!=null) a.add(getAbove());
+    }
+    if(!below){
+      if(getBelow()!=null) a.add(getBelow());
+    }
+    wall n = a.get(rnd.nextInt(a.size()));
+    if(n==getRight()){
+      fillRight(255);
+    }
+    if(n==getLeft()){
+      fillLeft(255);
+    }
+    if(n==getAbove()){
+      fillAbove(255);
+    }
+    if(n==getBelow()){
+      fillBelow(255);
+    }
+    //println(a + " a " + n +" n");
+    return n;
+  }
+    
   
   String toString(){
     return xcor + " " + ycor;
