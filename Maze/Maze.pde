@@ -49,13 +49,17 @@ void makeMaze(){
   int visitedCells=1;
   stack.push(current);
   while (visitedCells<totalCells){
+    println(current.hasNeighbors());
     if(current.hasNeighbors()){
       stack.push(current);
       current = current.ranNeighbor();
-      //println("oc"+current+"oc");
+      println("oc"+current+"oc");
       visitedCells++;
-    } else {
+    } else if (!stack.isEmpty()){
+      
       current = stack.pop();
+    } else {
+      break;
     }
   }
 }
@@ -85,14 +89,14 @@ class node{
   }
   
   wall getRight(){
-    if(xcor<10){
+    if(xcor<rows-1){
       return grid[xcor+1][ycor];
     }
     return null;
   }
   
   wall getBelow(){
-    if(ycor<10){
+    if(ycor<rows-1){
       return grid[xcor][ycor+1];
     }
     return null;
@@ -115,18 +119,10 @@ class wall extends node{
     right=false;
     above=false;
     below=false;
-    if(xcor>=rows-2){
-      right=true;
-    }
-    if(xcor<=2){
-      left=true;
-    }
-    if(ycor>=cols-2){
-      below=true;
-    }
-    if(ycor<=2){
-      above=true;
-    }
+    if(ycor<=1) above = true;
+    if(xcor<=1) left = true;
+    if(ycor>=rows-1)below=true;
+    if(xcor>=cols-1)right=true;
   }
   
   void fillSquare(int f){
@@ -163,6 +159,7 @@ class wall extends node{
   }
   
   boolean hasNeighbors(){
+    
     return !right || !left || !above || !below;
   }
   
