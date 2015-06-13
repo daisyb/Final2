@@ -41,7 +41,7 @@ void setup(){
     }
   }
  
- //makeMaze();
+ makeMaze();
  
 }
 
