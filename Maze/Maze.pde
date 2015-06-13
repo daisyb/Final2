@@ -7,23 +7,21 @@ wall[][] grid;
 
 
 int rows, cols, cellSize, wallSize, windowSize;
-int totalCells;
 LinkedList<wall> stack;
 color black = (0);
 color white = (255);
 Random rnd = new Random();
 
 void setup(){
-  windowSize = 538;
+  windowSize = 600;
   wallSize = 10;
-  rows = 10;
+  rows = 18;
   cols = rows;
   noStroke();
   cellSize = windowSize/rows;
   size(windowSize,windowSize);
-  background(0);
+  background(255);
   grid = new wall[rows][cols];
-  totalCells= rows*cols;
   stack = new LinkedList<wall>();
   for(int r=0;r<rows;r++){
     for(int c=0;c<cols;c++){   
@@ -45,22 +43,16 @@ void setup(){
 }
 
 void makeMaze(){
-  wall current = grid[rnd.nextInt(rows)][rnd.nextInt(cols)];
+  wall current = grid[1][rows/2];
   int visitedCells=1;
-  stack.push(current);
-  while (visitedCells<totalCells){
-    println(current.hasNeighbors());
+  while (visitedCells<(rows*cols+50)){
     if(current.hasNeighbors()){
       stack.push(current);
       current = current.ranNeighbor();
-      println("oc"+current+"oc");
       visitedCells++;
     } else if (!stack.isEmpty()){
-      
       current = stack.pop();
-    } else {
-      break;
-    }
+    } 
   }
 }
         
@@ -74,8 +66,8 @@ class node{
   node(int xcor, int ycor){
     this.xcor = xcor;
     this.ycor = ycor;
-    fill(255);
-    rect(xcor*cellSize,ycor*cellSize,cellSize,cellSize);
+    //fill(255);
+    //rect(xcor*cellSize,ycor*cellSize,cellSize,cellSize);
     fill(0);
     rect(xcor*cellSize,ycor*cellSize,wallSize,cellSize+wallSize);
     rect(xcor*cellSize,ycor*cellSize,wallSize+cellSize,wallSize);
@@ -89,7 +81,7 @@ class node{
   }
   
   wall getRight(){
-    if(xcor<rows-1){
+    if(xcor<cols-1){
       return grid[xcor+1][ycor];
     }
     return null;
@@ -112,13 +104,9 @@ class node{
 
 class wall extends node{
   boolean left,right,above,below;
-  
+  boolean exit,entrance;
   wall(int xcor, int ycor){
     super(xcor,ycor);
-    left=false;
-    right=false;
-    above=false;
-    below=false;
     if(ycor<=1) above = true;
     if(xcor<=1) left = true;
     if(ycor>=rows-1)below=true;
@@ -159,8 +147,12 @@ class wall extends node{
   }
   
   boolean hasNeighbors(){
-    
-    return !right || !left || !above || !below;
+    int falseCount=0;
+    if(!right)falseCount++;
+    if(!left)falseCount++;
+    if(!above)falseCount++;
+    if(!below)falseCount++;
+    return falseCount>=2;
   }
   
   wall ranNeighbor(){
