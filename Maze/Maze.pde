@@ -1,6 +1,16 @@
 import java.util.LinkedList;
 import java.util.Random;
 
+/*
+so there are cells in the grid 
+and each of them has wall to the right left below and above
+to make the maze I just changed some of those walls from black to white
+hopefully you'll be able to find away to get the players to move only on white and not be able 
+to cross over black
+hopefully my code isn't too backwards
+we'll see
+*/
+
 
 
 wall[][] grid;
@@ -11,14 +21,16 @@ LinkedList<wall> stack;
 color black = (0);
 color white = (255);
 Random rnd = new Random();
+wall entrance;
+wall exit;
 
 void setup(){
-  windowSize = 600;
+  windowSize = 640;
   wallSize = 10;
-  rows = 18;
+  rows = 22;
   cols = rows;
   noStroke();
-  cellSize = windowSize/rows;
+  cellSize = windowSize/(rows-1);
   size(windowSize,windowSize);
   background(255);
   grid = new wall[rows][cols];
@@ -28,24 +40,16 @@ void setup(){
        grid[r][c] = new wall(r,c);
     }
   }
-  /*
-  grid[10][10].fillSquare(200);
-  grid[10][10].fillLeft(255);
-  grid[10][10].fillAbove(255);
-  grid[10][10].fillBelow(255);
-  grid[10][10].fillRight(255);
-  grid[3][3].fillRight(255);
-  println(grid[10][9].below);
-  println(black);
-  //grid[10][10].fillSquare(200);
- */
- makeMaze();
+ 
+ //makeMaze();
+ 
 }
+
 
 void makeMaze(){
   wall current = grid[1][rows/2];
   int visitedCells=1;
-  while (visitedCells<(rows*cols+50)){
+  while (visitedCells<rows*cols+60){
     if(current.hasNeighbors()){
       stack.push(current);
       current = current.ranNeighbor();
@@ -54,6 +58,26 @@ void makeMaze(){
       current = stack.pop();
     } 
   }
+  exit=null;
+ for(int i=0;i<rows;i++){
+   wall cell = grid[cols-1][i];
+   if(cell.left ==true && exit==null){
+     exit=cell;
+     cell.fillRight(9,232,83);
+     grid[cols-2][i].fillLeft(255);
+   } else {
+     cell.fillLeft(0);
+   }
+ }
+ entrance = grid[1][rows/2];
+ entrance.fillLeft(9,158,232);
+ entrance.fillLeft(255);
+ grid[2][rows/2].fillLeft(255);
+ for(wall cell : grid[1]){
+   if(cell.left == true && entrance != cell){
+     cell.fillRight(0);
+   }
+ }
 }
         
         
@@ -69,8 +93,9 @@ class node{
     //fill(255);
     //rect(xcor*cellSize,ycor*cellSize,cellSize,cellSize);
     fill(0);
-    rect(xcor*cellSize,ycor*cellSize,wallSize,cellSize+wallSize);
-    rect(xcor*cellSize,ycor*cellSize,wallSize+cellSize,wallSize);
+    rect(xcor*cellSize,(ycor)*cellSize,wallSize,cellSize+wallSize);
+    rect(xcor*cellSize,(ycor)*cellSize,wallSize+cellSize,wallSize);
+    
   }
   
   wall getLeft(){
@@ -105,6 +130,7 @@ class node{
 class wall extends node{
   boolean left,right,above,below;
   boolean exit,entrance;
+
   wall(int xcor, int ycor){
     super(xcor,ycor);
     if(ycor<=1) above = true;
@@ -123,6 +149,20 @@ class wall extends node{
     rect((xcor-1)*cellSize,ycor*cellSize,wallSize,wallSize-cellSize);
     right = true;
     if(getRight() != null) getRight().left=true;
+  }
+  
+  void fillLeft(int f1,int f2,int f3){
+    fill(f1,f2,f3);
+    rect((xcor-1)*cellSize,ycor*cellSize,wallSize,wallSize-cellSize);
+    right = true;
+    if(getRight() != null) getRight().left=true;
+  }
+  
+  void fillRight(int f1,int f2,int f3){
+   fill(f1,f2,f3);
+    rect(xcor*cellSize,ycor*cellSize,wallSize,wallSize-cellSize);
+    left=true;
+    if(getLeft() != null) getLeft().right=true;
   }
   
   void fillAbove(int f){
