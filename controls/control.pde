@@ -34,8 +34,7 @@ void keyz() {
     else {
     println ("move")
     }
-      }
-      } 
-    } 
-  } 
+    
+    }
+  }
 
