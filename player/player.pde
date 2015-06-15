@@ -1,11 +1,7 @@
 class Player {
-  float PlayerX;
-  float PlayerY;
-  float addX;
-  float addY;
   void Player () {
     fill (255, 0, 0);
-    ellipse(PlayerX, PlayerY, 10, 10);
+    ellipse(PlayerX, PlayerY, 5, 5);
     }
   }
  
