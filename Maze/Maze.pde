@@ -10,7 +10,7 @@ to cross over black
 hopefully my code isn't too backwards
 we'll see
 */
-
+class Maze{
 
 
 wall[][] grid;
@@ -24,7 +24,7 @@ Random rnd = new Random();
 wall entrance;
 wall exit;
 
-void setup(){
+void mazeSetup(){
   windowSize = 640;
   wallSize = 10;
   rows = 22;
@@ -232,5 +232,30 @@ class wall extends node{
     return xcor + " " + ycor;
   }
 }
+
+switch (lvls) {
+    case 0:
+      defineMazeLevel0 () ;
+      break;
+    case 1:
+      defineMazeLevel1 () ;
+      break;
+    case 2:
+      defineMazeLevel2 () ;
+      break;     
+    }
+}
+ 
+  private void defineMazeLevel0 () {
+    mazeSetup();
+  }
+  private void defineMazeLevel1 () {
+    mazeSetup();
+  }
+  private void defineMazeLevel2 () {
+    mazeSetup();
+  }
+  
+//just decided to add onto this original instead of making a new one, deleting it now
 
 
