@@ -2,6 +2,8 @@
 void keyPressed() {
   switch (stateOfGame) {
   case statePlay:
+  int x;
+  int y;
     keys();
     break;
   } 
@@ -10,7 +12,7 @@ void keyPressed() {
 void keyz() {
   if (key == CODED) {
     if (keyCode == UP) {
-      player.addX=0;
+      if(color==maze.white){
       player.addY=-1;
     }
     else if (keyCode == DOWN) {
