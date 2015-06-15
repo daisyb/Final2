@@ -78,7 +78,7 @@ class node{
     if(xcor>1){
       return grid[xcor-1][ycor];
     } 
-    return null;
+    return 0;
   }
   
   wall getRight(){
