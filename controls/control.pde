@@ -1,11 +1,13 @@
-
 void keyPressed() {
   switch (stateOfGame) {
-  case statePlay:
-//  int x;
-//  int y;
+  case play:
+  int x, y, step;
+  step= 1;
+  x=x+(step*directionx);
   int directionx = 1;
   int directiony = 0;
+  x=x+(step*directionx);
+  y=y+(step*directiony);
     keys();
     break;
   } 
