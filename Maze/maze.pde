@@ -208,7 +208,7 @@ class wall extends node{
   }
 }
   
-    switch (levelCount) {
+    switch (lvls) {
     case 0:
       defineMazeLevel0 () ;
       break;
