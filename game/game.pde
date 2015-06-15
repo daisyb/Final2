@@ -2,8 +2,8 @@ final int play=0;
 final int end=1;
 final int start=2
 final int newlvl=3;
-int lvl = 0;
-final int maxlvls = 3;
+int lvl = 1;
+final int maxlvls = 5;
 int stateOfGame = start;
 Player player = new Player();
 Maze maze = new Maze();
@@ -34,13 +34,10 @@ void draw () {
     break;
   case end:
     maze.drawMaze() ;
-    player.addX=0;
-    player.addY=0;
     player.drawPlayer();
     starting();
     break;
     default:
     exit();
-    break;
   } 
 } 
