@@ -2,8 +2,10 @@
 void keyPressed() {
   switch (stateOfGame) {
   case statePlay:
-  int x;
-  int y;
+//  int x;
+//  int y;
+  int directionx = 1;
+  int directiony = 0;
     keys();
     break;
   } 
@@ -12,30 +14,25 @@ void keyPressed() {
 void keyz() {
   if (key == CODED) {
     if (keyCode == UP) {
-      if(color==maze.white){
-      player.addY=-1;
+      directiony = 1;
+      directionx = 0;
     }
     else if (keyCode == DOWN) {
-      player.addX=0;
-      player.addY=1;
+      directiony = -1;
+      directionx = 0;
     }
     else if (keyCode == RIGHT) {
-      player.addX=1;
-      player.addY=0;
+      directiony = 0;
+      directionx = 1;
     }
     else if (keyCode == LEFT) {
-      player.addX=-1;
-      player.addY=0;
+      directiony = 0;
+      directionx = -1;
     }
     else {
+    println ("move")
     }
-  }
-  else { 
-    if (key == 'r') {
-      starting();
-      //just to reset to test
-    else {
-        stateOfGame = play;
+      }
       } 
     } 
   } 
