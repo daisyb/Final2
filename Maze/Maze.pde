@@ -235,24 +235,34 @@ class wall extends node{
 
 switch (lvls) {
     case 0:
-      defineMazeLevel0 () ;
-      break;
-    case 1:
       defineMazeLevel1 () ;
       break;
-    case 2:
+    case 1:
       defineMazeLevel2 () ;
+      break;
+    case 2:
+      defineMazeLevel3 () ;
       break;     
+    case 3:
+      defineMazeLevel4 ();
+    case 4:
+      defineMazeLevel5 ();
     }
 }
  
-  private void defineMazeLevel0 () {
-    mazeSetup();
-  }
   private void defineMazeLevel1 () {
     mazeSetup();
   }
   private void defineMazeLevel2 () {
+    mazeSetup();
+  }
+  private void defineMazeLevel3 () {
+    mazeSetup();
+  }
+  private void defineMazeLevel4 () {
+    mazeSetup();
+  }
+  private void defineMazeLevel5 () {
     mazeSetup();
   }
   
