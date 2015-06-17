@@ -1,3 +1,9 @@
+/*
+	equivalent of node class
+	stores data for black walls on either side
+	the fill commands will change the colors of
+	those walls, usually to white
+*/
 
 class wall{
   boolean left,right,above,below;
@@ -11,8 +17,6 @@ class wall{
    right=false;
    above=false;
    below=false;
-    //fill(255);
-    //rect(xcor*cellSize,ycor*cellSize,cellSize,cellSize);
     fill(0);
     rect(xcor*cellSize,(ycor)*cellSize,wallSize,cellSize+wallSize);
     rect(xcor*cellSize,(ycor)*cellSize,wallSize+cellSize,wallSize);
@@ -22,7 +26,11 @@ class wall{
       if(ycor>=rows-1)below=true;
       if(xcor>=cols-1)right=true;
   }
-  
+
+/*
+	the get functions return adjacent cells
+*/  
+
   wall getLeft(){
     if(xcor>1){
       return grid[xcor-1][ycor];
@@ -52,11 +60,19 @@ class wall{
   }
 
 
-  
+/* 	
+	fills the center of each cell, 
+	mostly for testing purposes
+  */
+
     void fillSquare(int f){
       fill(f);
       rect((xcor-1)*cellSize+wallSize,(ycor-1)*cellSize+wallSize,cellSize-rows+1,cellSize-cols+1);
     }
+	
+	/* 
+	fills the left and right walls colors other than black grey or white
+	*/
 
     void fillLeft(int f1,int f2,int f3){
       fill(f1,f2,f3);
@@ -72,6 +88,11 @@ class wall{
       if(getRight() != null) getRight().left=true;
     }
       
+
+	/* 
+	the remaining fill functions modify the color of all adjacent walls
+	usually to white
+*/
     void fillRight(int f){
       right=true;
       getRight().fillLeft(0);
@@ -96,7 +117,9 @@ class wall{
       if(getBelow() != null) getBelow().above=true;
     }
     
-   
+   /* 
+	checks to see if there are any remaining surrounding walls up
+	*/
     boolean hasNeighbors(){
       int falseCount=0;
       if(!right)falseCount++;
@@ -106,6 +129,9 @@ class wall{
       return falseCount>0;
     }
     
+/*
+	picks out a random neighboring node
+*/
     wall ranNeighbor(){
       if(!hasNeighbors())return null;
       ArrayList<wall> a = new ArrayList<wall>();

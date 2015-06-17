@@ -28,12 +28,17 @@ void setup(){
 }
 
 
-
+//colors over and redraws player based on new coordinates
 void draw(){
   oldp1.fillEllipse();
   player p1 = new player(playerCoord);
   oldp1 = p1;
 }
+	/*
+		checks if wall to the right
+		checkleft,below,above do the same for each respective case
+		checkVictory checks if you're at the exit
+	*/
 
      boolean checkRight(){
 
@@ -66,6 +71,10 @@ void draw(){
        return c == -16127917;
     }
     
+/*
+	modifies the player coordinates 
+	based on what keys they press
+*/
 void keyPressed(){
   int pX = (int)playerCoord.x;
   int pY = (int)playerCoord.y;

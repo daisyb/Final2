@@ -4,6 +4,7 @@ class Board{
  
   LinkedList<wall> stack;
   
+//intializes the grid
   Board(){
    
     grid = new wall[rows][cols];
@@ -15,7 +16,10 @@ class Board{
     }
   }
   
-  
+  /*
+	creates the maze
+	sets the exit and entrance
+*/
   void makeMaze(){
     wall current = grid[1][rows/2];
     int visitedCells=1;
